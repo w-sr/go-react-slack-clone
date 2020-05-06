@@ -1,11 +1,8 @@
-let initialNumber = 0;
 
-export const userAddAPI = (): Promise<number> => {
+export const userAddAPI = (payload: any): Promise<number> => {
   const promise = new Promise<number>(resolve => {
-    setTimeout(() => {
-      initialNumber += 1;
-      resolve(initialNumber);
-    }, 500);
+    console.log('payload', payload)
+    resolve(payload)
   });
 
   return promise;

@@ -1,6 +1,13 @@
 import * as TYPE from '../constants';
 
-export const userAddAction = () => ({
+import { IFields } from '../components/common'
+
+export const userAddAction = (params: IFields) => ({
   type: TYPE.ADD_USER,
-  payload: null,
+  payload: params,
+});
+
+export const userAddCompletedAction = (params: IFields) => ({
+  type: TYPE.ADD_USER_SUCCESS,
+  payload: params,
 });

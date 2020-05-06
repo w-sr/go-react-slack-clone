@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
+import { IFields } from '../components/common'
 import {
-  User,
   UserReducer,
 } from './user.reducer';
 
 export interface State {
-  numberCollection: User;
+  numberCollection: IFields;
 }
 
 export const rootReducers = combineReducers<State>({

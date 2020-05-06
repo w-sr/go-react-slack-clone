@@ -1,9 +1,5 @@
 import * as TYPE from '../constants';
-
-export interface User {
-  name: '',
-  email: '',
-};
+import { IFields } from '../components/common'
 
 export interface BaseAction {
   type: string;
@@ -11,11 +7,20 @@ export interface BaseAction {
 }
 
 export const UserReducer = (
-  state: User = { name: '', email: '' },
+  state: IFields = {
+    name: {
+      id: 'name',
+      value: ''
+    },
+    email: {
+      id: 'name',
+      value: ''
+    }
+  },
   action: BaseAction
 ) => {
   switch (action.type) {
-    case TYPE.ADD_USER:
+    case TYPE.ADD_USER_SUCCESS:
       return action.payload;
   }
 

@@ -154,7 +154,6 @@ export const Form: React.FC<IFormProps> = (props) => {
         responseBody = await response.json();
         const errors: IErrors = {};
         Object.keys(responseBody).map((key: string) => {
-          // For ASP.NET core, the field names are in title case - so convert to camel case
           const fieldName = key.charAt(0).toLowerCase() + key.substring(1);
           errors[fieldName] = responseBody[key];
         });
