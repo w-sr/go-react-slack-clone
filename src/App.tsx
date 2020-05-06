@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Login from './components/login';
-import Chat from './components/chat';
+import Login from './components/Login';
+import Chat from './components/Chat';
 
 import './App.css';
 

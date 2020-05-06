@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Form, Field, IFields, required, isEmail } from './common';
+import { Form, Field, IFields, required, isEmail } from '../common';
 
 const LoginForm: React.SFC = () => {
   const fields: IFields = {
