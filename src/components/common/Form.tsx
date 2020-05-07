@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import { IFieldProps } from './Field';
 
 export interface IFields {
@@ -10,6 +11,7 @@ interface IFormProps {
 
   fields: IFields;
 
+  changeRoute(): any,
   render: () => React.ReactNode;
 }
 
@@ -81,6 +83,7 @@ export const Form: React.FC<IFormProps> = (props) => {
   const [errors, setErrors] = React.useState({});
   const [values, setVals] = React.useState({});
   const [submitSuccess, setSubmitSuccess] = React.useState(false);
+  const mountedRef = React.useRef(true)
 
   const setValues = (vals: IValues) => {
     setVals({ ...values, ...vals })
@@ -139,31 +142,62 @@ export const Form: React.FC<IFormProps> = (props) => {
   }
 
   const submitForm = async (): Promise<boolean> => {
-    try {
-      const response = await fetch(props.action, {
-        method: "post",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        }),
-        body: JSON.stringify(values)
-      });
-      if (response.status === 400) {
-        /* Map the validation errors to IErrors */
-        let responseBody: any;
-        responseBody = await response.json();
-        const errors: IErrors = {};
-        Object.keys(responseBody).map((key: string) => {
-          const fieldName = key.charAt(0).toLowerCase() + key.substring(1);
-          errors[fieldName] = responseBody[key];
-        });
-        setErrors(errors);
-      }
-      return response.ok;
-    } catch (ex) {
-      return false;
-    }
+    console.log('values', values)
+    // try {
+    //   const response = await fetch(props.action, {
+    //     method: "post",
+    //     headers: new Headers({
+    //       "Content-Type": "application/json",
+    //       Accept: "application/json"
+    //     }),
+    //     body: JSON.stringify(values)
+    //   });
+    //   if (response.status === 400) {
+    //     let responseBody: any;
+    //     responseBody = await response.json();
+    //     const errors: IErrors = {};
+    //     Object.keys(responseBody).map((key: string) => {
+    //       const fieldName = key.charAt(0).toLowerCase() + key.substring(1);
+    //       errors[fieldName] = responseBody[key];
+    //     });
+    //     setErrors(errors);
+    //   }
+    //   return response.ok;
+    // } catch (ex) {
+    //   return false;
+    // }
+
+    await axios.post(props.action, values)
+      .then((response) => {
+        console.log('response', response, props)
+        props.changeRoute();
+        if (!mountedRef.current) return null
+        return true
+      })
+      .catch((error) => {
+        console.log('error', error)
+
+        // if (error.status === 400) {
+        //   let responseBody: any;
+        //   responseBody = await response.json();
+        //   const errors: IErrors = {};
+        //   Object.keys(responseBody).map((key: string) => {
+        //     const fieldName = key.charAt(0).toLowerCase() + key.substring(1);
+        //     errors[fieldName] = responseBody[key];
+        //   });
+        //   setErrors(errors);
+        // }
+        return false;
+      })
+
+    return true;
   }
+
+  React.useEffect(() => {
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
 
   const context: IFormContext = {
     values,

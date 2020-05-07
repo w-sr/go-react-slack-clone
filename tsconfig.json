@@ -23,7 +23,8 @@
     "noUnusedParameters": true,
     "experimentalDecorators": true,
     "noFallthroughCasesInSwitch": true,
-    "noEmit": true
+    "noEmit": true,
+    "noImplicitAny": false
   },
   "include": [
     "src"

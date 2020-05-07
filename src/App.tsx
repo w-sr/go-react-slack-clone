@@ -6,7 +6,17 @@ import Chat from './components/Chat';
 
 import './App.css';
 
-function App() {
+import { setPusherClient } from 'react-pusher';
+import Pusher from 'pusher-js';
+
+const pusherClient = new Pusher('1c26e82bbab3e3492ee0', {
+  authEndpoint: '/pusher/auth',
+  cluster: 'mt1',
+});
+
+setPusherClient(pusherClient);
+
+const App = () => {
   return (
     <Router>
       <Route path="/" exact component={Login} />
