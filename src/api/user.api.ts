@@ -1,9 +1,14 @@
+import axios from 'axios';
 
-export const userAddAPI = (payload: any): Promise<number> => {
-  const promise = new Promise<number>(resolve => {
-    console.log('payload', payload)
-    resolve(payload)
-  });
+export const userAddAPI = async (payload: any): Promise<boolean> => {
+  console.log('payload', payload)
+  await axios.post('/new/user', JSON.stringify(payload))
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error;
+    })
 
-  return promise;
+  return true;
 };

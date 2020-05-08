@@ -70,10 +70,7 @@ export const Field: React.SFC<IFieldProps> = ({
               name={id}
               value={value}
               style={getEditorStyle(context.errors)}
-              // onChange={
-              //   (e: React.FormEvent<HTMLInputElement>) =>
-              //     console.log(e) /* TODO: validate field value */}
-              // onBlur={() => context.validate(id)}
+              onBlur={() => context.validate(id)}
               className="form-control"
             >
               {options &&

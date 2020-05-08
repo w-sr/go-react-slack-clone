@@ -8,6 +8,5 @@ export function* userSaga() {
 
 function* userAdd({ payload }: ReturnType<typeof userAddAction>) {
   const response = yield call(userAddAPI, payload);
-  console.log('response', response.data);
   yield put(userAddCompletedAction(response));
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { userAddAction } from '../../actions'
 import { IFieldProps } from './Field';
 
 export interface IFields {
@@ -83,6 +84,7 @@ export const Form: React.FC<IFormProps> = (props) => {
   const [errors, setErrors] = React.useState({});
   const [values, setVals] = React.useState({});
   const [submitSuccess, setSubmitSuccess] = React.useState(false);
+  const dispatch = useDispatch();
   const mountedRef = React.useRef(true)
 
   const setValues = (vals: IValues) => {
@@ -122,6 +124,7 @@ export const Form: React.FC<IFormProps> = (props) => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    console.log('handleSubmit')
     e.preventDefault();
 
     if (validateForm()) {
@@ -142,7 +145,6 @@ export const Form: React.FC<IFormProps> = (props) => {
   }
 
   const submitForm = async (): Promise<boolean> => {
-    console.log('values', values)
     // try {
     //   const response = await fetch(props.action, {
     //     method: "post",
@@ -167,28 +169,20 @@ export const Form: React.FC<IFormProps> = (props) => {
     //   return false;
     // }
 
-    await axios.post(props.action, values)
-      .then((response) => {
-        console.log('response', response, props)
-        props.changeRoute();
-        if (!mountedRef.current) return null
-        return true
-      })
-      .catch((error) => {
-        console.log('error', error)
-
-        // if (error.status === 400) {
-        //   let responseBody: any;
-        //   responseBody = await response.json();
-        //   const errors: IErrors = {};
-        //   Object.keys(responseBody).map((key: string) => {
-        //     const fieldName = key.charAt(0).toLowerCase() + key.substring(1);
-        //     errors[fieldName] = responseBody[key];
-        //   });
-        //   setErrors(errors);
-        // }
-        return false;
-      })
+    console.log('dispatch(userAddAction(values));');
+    await dispatch(userAddAction(values));
+    props.changeRoute();
+    // await axios.post(props.action, values)
+    //   .then((response) => {
+    //     console.log('response', response, props)
+    //     props.changeRoute();
+    //     if (!mountedRef.current) return null
+    //     return true
+    //   })
+    //   .catch((error) => {
+    //     console.log('error', error)
+    //     return false;
+    //   })
 
     return true;
   }

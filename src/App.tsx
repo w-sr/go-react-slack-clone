@@ -9,14 +9,21 @@ import './App.css';
 import { setPusherClient } from 'react-pusher';
 import Pusher from 'pusher-js';
 
-const pusherClient = new Pusher('1c26e82bbab3e3492ee0', {
-  authEndpoint: '/pusher/auth',
-  cluster: 'mt1',
-});
-
-setPusherClient(pusherClient);
-
 const App = () => {
+  const pusherClient = new Pusher('1c26e82bbab3e3492ee0', {
+    authEndpoint: '/pusher/auth',
+    cluster: 'mt1',
+  });
+
+  setPusherClient(pusherClient);
+
+  React.useEffect(() => {
+    pusherClient.subscribe('update');
+    pusherClient.bind('new-user', function (data) {
+      console.log(data.email)
+    })
+  }, [pusherClient])
+
   return (
     <Router>
       <Route path="/" exact component={Login} />

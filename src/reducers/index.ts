@@ -5,9 +5,9 @@ import {
 } from './user.reducer';
 
 export interface State {
-  numberCollection: IFields;
+  currentUser: IFields;
 }
 
 export const rootReducers = combineReducers<State>({
-  numberCollection: UserReducer,
+  currentUser: UserReducer,
 });

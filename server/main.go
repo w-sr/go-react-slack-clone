@@ -34,6 +34,7 @@ type user struct {
 func registerNewUser(rw http.ResponseWriter, req *http.Request) {
 	body, err := ioutil.ReadAll(req.Body)
 
+	fmt.Println()
 	if err != nil {
 		panic(err)
 	}
