@@ -1,13 +1,21 @@
-import * as TYPE from '../constants';
-
 import { IFields } from '../components/common'
 
-export const userAddAction = (params: IFields) => ({
-  type: TYPE.ADD_USER,
+export const loginAction = (params: IFields) => ({
+  type: "LOGIN_USER",
   payload: params,
 });
 
-export const userAddCompletedAction = (params: IFields) => ({
-  type: TYPE.ADD_USER_SUCCESS,
-  payload: params,
-});
+export const updateChannel = (params: any) => ({
+  type: "UPDATE_CHANNEL",
+  payload: params
+})
+
+export const addUsers = (params: any) => ({
+  type: "ADD_USERS",
+  payload: params
+})
+
+export const updateRoom = (params: any) => ({
+  type: "UPDATE_ROOM",
+  payload: params
+})

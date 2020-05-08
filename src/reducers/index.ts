@@ -1,13 +1,8 @@
 import { combineReducers } from 'redux';
-import { IFields } from '../components/common'
 import {
-  UserReducer,
+  ChatReducer,
 } from './user.reducer';
 
-export interface State {
-  currentUser: IFields;
-}
-
-export const rootReducers = combineReducers<State>({
-  currentUser: UserReducer,
+export const rootReducers = combineReducers({
+  ChatReducer,
 });

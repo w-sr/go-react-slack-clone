@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { userAddAction } from '../../actions'
+import { loginAction } from '../../actions'
 import { IFieldProps } from './Field';
 
 export interface IFields {
@@ -117,14 +117,12 @@ export const Form: React.FC<IFormProps> = (props) => {
       );
     }
 
-    // errors[fieldName] = newError;
     setErrors({ ...errors, [fieldName]: newError })
 
     return newError;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    console.log('handleSubmit')
     e.preventDefault();
 
     if (validateForm()) {
@@ -145,45 +143,8 @@ export const Form: React.FC<IFormProps> = (props) => {
   }
 
   const submitForm = async (): Promise<boolean> => {
-    // try {
-    //   const response = await fetch(props.action, {
-    //     method: "post",
-    //     headers: new Headers({
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json"
-    //     }),
-    //     body: JSON.stringify(values)
-    //   });
-    //   if (response.status === 400) {
-    //     let responseBody: any;
-    //     responseBody = await response.json();
-    //     const errors: IErrors = {};
-    //     Object.keys(responseBody).map((key: string) => {
-    //       const fieldName = key.charAt(0).toLowerCase() + key.substring(1);
-    //       errors[fieldName] = responseBody[key];
-    //     });
-    //     setErrors(errors);
-    //   }
-    //   return response.ok;
-    // } catch (ex) {
-    //   return false;
-    // }
-
-    console.log('dispatch(userAddAction(values));');
-    await dispatch(userAddAction(values));
+    await dispatch(loginAction(values));
     props.changeRoute();
-    // await axios.post(props.action, values)
-    //   .then((response) => {
-    //     console.log('response', response, props)
-    //     props.changeRoute();
-    //     if (!mountedRef.current) return null
-    //     return true
-    //   })
-    //   .catch((error) => {
-    //     console.log('error', error)
-    //     return false;
-    //   })
-
     return true;
   }
 
